@@ -1,10 +1,11 @@
+import {Post} from './Post'
 
-function App() {
- 
+export function App() {
 
   return (
-    <h1>Hello world</h1>
+   <div>
+     <Post author="Anderson" content="teste de propriedades"/>
+    
+   </div>
   )
 }
-
-export default App
