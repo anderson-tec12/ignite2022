@@ -8,6 +8,7 @@
   --gray-800: #202024;
   --gray-900: #121214;
 
+  --green-300: #00B37E;
   --green-500: #00875f;
 }
 
@@ -15,6 +16,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
+}
+
+*::-webkit-scrollbar-track{
+  background:var(--gray-900);
+}
+
+*::-webkit-scrollbar{
+  width:2px;
+  /* background:var(--gray-400); */
+}
+
+*::-webkit-scrollbar-thumb{
+  background:var(--gray-600);
 }
 
 
