@@ -3,8 +3,12 @@ import { Comment } from './Comment';
 import {format, formatDistanceToNow} from 'date-fns'
 import ptbr from 'date-fns/locale/pt-BR'
 import styles from './Post.module.css'; 
+import { useState } from 'react';
+
+
 
 export function Post(props){
+  const [comments, setComments] = useState([1,2])
   const content = props.content
   // const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
   //   day:'2-digit',
@@ -22,6 +26,12 @@ export function Post(props){
     addSuffix:true
   })
 
+
+  function handleCreateNewComment(event){
+    event.preventDefault()
+    setComments(oldState => [...oldState, oldState.length + 1])
+  }
+
   
   // props.publishedAt
   return(
@@ -37,8 +47,7 @@ export function Post(props){
 
         <time title={publishedDateFormattedDATE} dateTime={props.publishedAt.toISOString()}>{
            publishedDateRelativeToNow
-         
-}</time>
+         }</time>
       </header>
 
       <div className={styles.content}>
@@ -56,7 +65,7 @@ export function Post(props){
         
       </div>
 
-      <form className={styles.commentForm}>
+      <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
         <strong>Deixe seu feedback</strong>
         <textarea placeholder='Deixe um comentario'/>
        <footer>
@@ -65,10 +74,10 @@ export function Post(props){
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+
+      {comments.map(comment => (<Comment key={comment}/>))}
+        
+       
       </div>
     </article>
   )
