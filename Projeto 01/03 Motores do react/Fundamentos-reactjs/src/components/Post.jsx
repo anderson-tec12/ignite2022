@@ -1,37 +1,58 @@
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import {format, formatDistanceToNow} from 'date-fns'
+import ptbr from 'date-fns/locale/pt-BR'
 import styles from './Post.module.css'; 
 
-export function Post(){
+export function Post(props){
+  const content = props.content
+  // const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+  //   day:'2-digit',
+  //   month:'long',
+  //   hour:'2-digit',
+  //   minute:'2-digit',
+  // }).format(props.publishedAt)
+
+  const publishedDateFormattedDATE = format(props.publishedAt, "d 'de' LLLL 'às' HH:mm'h'",{
+    locale:ptbr
+  })
+
+  const publishedDateRelativeToNow = formatDistanceToNow(props.publishedAt, {
+    locale:ptbr,
+    addSuffix:true
+  })
+
+  
+  // props.publishedAt
   return(
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://avatars.githubusercontent.com/u/12089780?v=4"/>
+          <Avatar src={props.author.avatarUrl}/>
           <div className={styles.authorinfo}>
-            <strong>Anderson B. Silva</strong>
-            <span>Web Developer</span>
+            <strong>{props.author.name}</strong>
+            <span>{props.author.role}</span>
           </div>
         </div>
 
-        <time title="11 de maio as 18:13" dateTime="2022-06-07 08:00:00">Publicado há 1h</time>
+        <time title={publishedDateFormattedDATE} dateTime={props.publishedAt.toISOString()}>{
+           publishedDateRelativeToNow
+         
+}</time>
       </header>
 
       <div className={styles.content}>
-        <p>
-          Fala galeraa 👋</p>
 
-          <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, 
-          evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-          <p><a href="#">jane.design/doctorcare</a></p>
-
-          <p>
-            <a href="#">#novoprojeto</a>{' '}
-            {/* <a href="#"> #nlw</a>{' '} 
-            <a href="#">#rocketseat</a>{' '} */}
-            
-          </p>
+        {
+          content.map(line => {
+            if(line.type==='paragraph'){
+              return <p>{line.content}</p>
+            }else{
+              return <p><a href="#">{line.content}</a></p>
+            }
+          })
+        }
+       
         
       </div>
 

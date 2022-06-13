@@ -20,7 +20,7 @@ const posts = [
           {type:'link', content:'jane.design/doctorcare'}
          
     ],
-    publishedAt: new Date('2022-05-03 20:00:00')
+    publishedAt: new Date()
   },
   {
     id:2,
@@ -35,7 +35,7 @@ const posts = [
           {type:'link', content:'jane.design/doctorcare'}
          
     ],
-    publishedAt: new Date('2022-05-05 20:00:00')
+    publishedAt: new Date()
   },
   {
     id:3,
@@ -50,7 +50,7 @@ const posts = [
           {type:'link', content:'jane.design/doctorcare'}
          
     ],
-    publishedAt: new Date('2022-05-04 20:00:00')
+    publishedAt: new Date()
   }
 ]
 export function App() {
@@ -65,7 +65,7 @@ export function App() {
         <main>
         {
           posts.map(post => (
-            <Post key={post.id} author={post.author} content={post.content} publisehdAt={post.publishedAt}/>
+            <Post key={post.id} author={post.author} content={post.content} publishedAt={post.publishedAt}/>
           ))
         }      
         </main>
