@@ -3,7 +3,7 @@ import { Comment } from './Comment';
 import {format, formatDistanceToNow} from 'date-fns'
 import ptbr from 'date-fns/locale/pt-BR'
 import styles from './Post.module.css'; 
-import { useState } from 'react';
+import { useState, useId} from 'react';
 
 
 
@@ -47,7 +47,7 @@ export function Post(props){
   
   // props.publishedAt
   return(
-    <article className={styles.post}>
+    <article className={styles.post} data-a={useId()}>
       <header>
         <div className={styles.author}>
           <Avatar src={props.author.avatarUrl}/>
@@ -67,9 +67,9 @@ export function Post(props){
         {
           content.map(line => {
             if(line.type==='paragraph'){
-              return <p>{line.content}</p>
+              return <p key={useId()}>{line.content}</p>
             }else{
-              return <p><a href="#">{line.content}</a></p>
+              return <p key={useId()}><a href="#">{line.content}</a></p>
             }
           })
         }
@@ -87,7 +87,7 @@ export function Post(props){
 
       <div className={styles.commentList}>
 
-      {comments.map(comment => (<Comment key={comment} content={comment} />))}
+      {comments.map(comment => (<Comment key={useId()} content={comment} />))}
         
        
       </div>

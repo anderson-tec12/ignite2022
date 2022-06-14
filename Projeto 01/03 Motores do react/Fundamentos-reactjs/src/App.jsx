@@ -1,3 +1,4 @@
+import {useId} from 'react'
 import { Header } from './components/Header'
 import {Post} from './components/Post'
 
@@ -65,7 +66,7 @@ export function App() {
         <main>
         {
           posts.map(post => (
-            <Post key={post.id} author={post.author} content={post.content} publishedAt={post.publishedAt}/>
+            <Post key={useId()}  author={post.author} content={post.content} publishedAt={post.publishedAt}/>
           ))
         }      
         </main>
