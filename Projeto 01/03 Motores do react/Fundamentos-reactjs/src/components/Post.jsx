@@ -8,7 +8,8 @@ import { useState } from 'react';
 
 
 export function Post(props){
-  const [comments, setComments] = useState([1,2])
+  const [comments, setComments] = useState(['Post muito bacana!!'])
+  const [newComment, setNewComment] = useState('')
   const content = props.content
   // const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
   //   day:'2-digit',
@@ -29,7 +30,18 @@ export function Post(props){
 
   function handleCreateNewComment(event){
     event.preventDefault()
-    setComments(oldState => [...oldState, oldState.length + 1])
+    // console.log(event.target.comment)
+    // const textArea = event.target.comment
+    // setComments(oldState => [...oldState, textArea.value])
+
+    // event.target.comment.value = ''
+
+    setComments(oldState => [...oldState, newComment])
+    setNewComment('')
+  }
+
+  function handleNewCommentChange(e){
+    setNewComment(e.target.value)
   }
 
   
@@ -67,7 +79,7 @@ export function Post(props){
 
       <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
         <strong>Deixe seu feedback</strong>
-        <textarea placeholder='Deixe um comentario'/>
+        <textarea value={newComment} name="comment" placeholder='Deixe um comentario' onChange={handleNewCommentChange}/>
        <footer>
        <button type="submit">Publicar</button>
        </footer>
@@ -75,7 +87,7 @@ export function Post(props){
 
       <div className={styles.commentList}>
 
-      {comments.map(comment => (<Comment key={comment}/>))}
+      {comments.map(comment => (<Comment key={comment} content={comment} />))}
         
        
       </div>
