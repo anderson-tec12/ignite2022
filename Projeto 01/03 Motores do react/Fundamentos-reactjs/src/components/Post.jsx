@@ -44,6 +44,11 @@ export function Post(props){
     setNewComment(e.target.value)
   }
 
+
+  function deleteComment(comment){
+    setComments( oldState => oldState.filter(c => c !== comment))
+  }
+
   
   // props.publishedAt
   return(
@@ -87,7 +92,7 @@ export function Post(props){
 
       <div className={styles.commentList}>
 
-      {comments.map(comment => (<Comment key={useId()} content={comment} />))}
+      {comments.map(comment => (<Comment content={comment} onDeleteComment={deleteComment}/>))}
         
        
       </div>
