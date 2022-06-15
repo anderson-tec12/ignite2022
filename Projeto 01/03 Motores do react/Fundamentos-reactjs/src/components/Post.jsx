@@ -36,11 +36,14 @@ export function Post(props){
 
     // event.target.comment.value = ''
 
+  
+
     setComments(oldState => [...oldState, newComment])
     setNewComment('')
   }
 
   function handleNewCommentChange(e){
+    e.target.setCustomValidity('')
     setNewComment(e.target.value)
   }
 
@@ -49,8 +52,14 @@ export function Post(props){
     setComments( oldState => oldState.filter(c => c !== comment))
   }
 
+  function handleNewCommentInvalid(e){
+    console.log(e)
+    e.target.setCustomValidity('Esse campo é obrigatório')
+  }
+
   
   // props.publishedAt
+  const isNewCommentEmpty = newComment.length > 0 ? false : true 
   return(
     <article className={styles.post} data-a={useId()}>
       <header>
@@ -84,9 +93,9 @@ export function Post(props){
 
       <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
         <strong>Deixe seu feedback</strong>
-        <textarea value={newComment} name="comment" placeholder='Deixe um comentario' onChange={handleNewCommentChange}/>
+        <textarea onInvalid={handleNewCommentInvalid} required  value={newComment} name="comment" placeholder='Deixe um comentario' onChange={handleNewCommentChange}/>
        <footer>
-       <button type="submit">Publicar</button>
+       <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
        </footer>
       </form>
 
